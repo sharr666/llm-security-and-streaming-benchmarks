@@ -14,7 +14,7 @@ Multi-Document Retrieval Architecture, 6-Layer Security Framework, and Constant-
 1. C++ -O3 with zlib
 2. PyArrow Parquet Snappy
 3. POSIX awk + split
-4. Python Batched CSV Streamerr
+4. Python Batched CSV Streamer
 ## Cittiona
 ```bibtex
 @article{poorhassan2026llm,
