@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software or benchmark corpus, please cite it as below."
+type: software
+title: "LLM Security, Streaming Benchmarks & Deconstructed Philoprompts Corpus"
+version: 1.0.1
+doi: 10.5281/zenodo.23758690
+date-released: 2026-10-29
+license: Apache-2.0
+authors:
+  - family-names: "Poorhassan"
+    given-names: "Mehrdad"
+    alias: "Dr. Metal"
+    orcid: "0009-0004-9269-3912"
