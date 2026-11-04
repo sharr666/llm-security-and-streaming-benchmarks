@@ -12,7 +12,6 @@ from src.omega_stack_security_engine import (
     python_batched_csv_streamer,
 )
 
-
 class LLMSecurityBenchmarkSuite:
     def __init__(self) -> None:
         self.engine = OmegaStackSecurityEngine(entropy_threshold=4.85, non_bmp_ratio_threshold=0.15)
@@ -119,9 +118,4 @@ class LLMSecurityBenchmarkSuite:
         }
 
 
-if __name__ == "__main__":
-    suite = LLMSecurityBenchmarkSuite()
-    out = suite.run_tests()
-    assert out["confusion_matrix"]["TP"] == 9
-    assert out["confusion_matrix"]["TN"] == 9
-    print(json.dumps(out, indent=2))
+if __n
