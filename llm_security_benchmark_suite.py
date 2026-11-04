@@ -116,6 +116,3 @@ class LLMSecurityBenchmarkSuite:
             "philoprompts_encoding_profile": self.evaluate_philoprompts_encoding(),
             "bounded_memory_stream": stream_res,
         }
-
-
-if __n
