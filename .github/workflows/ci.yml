@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Verify Python AST & Bytecode Compilation
+      - name: Verify Python AST Compilation & Execute Benchmark Suite
         run: |
-          python -m py_compile *.py
+          python -m py_compile llm_security_benchmark_suite.py src/*.py
+          python llm_security_benchmark_suite.pybr
