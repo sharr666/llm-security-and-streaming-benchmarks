@@ -18,4 +18,4 @@ jobs:
       - name: Verify Python AST Compilation & Execute Benchmark Suite
         run: |
           python -m py_compile llm_security_benchmark_suite.py src/*.py
-          python llm_security_benchmark_suite.pybr
+          python llm_security_benchmark_suite.py
