@@ -4,6 +4,7 @@ from src.omega_stack_security_engine import (
     OmegaStackSecurityEngine,
     RetrievedChunk,
     calculate_chunk_hmac,
+    chunk_signing_payload,
 )
 
 TEST_KEY = b"unit-test-key-contains-at-least-32-bytes-000"
@@ -20,6 +21,21 @@ def signed(text="ordinary text", repo="repo-a", trust="external_untrusted"):
 class OmegaStackTests(unittest.TestCase):
     def setUp(self):
         self.engine = OmegaStackSecurityEngine({"repo-a": TEST_KEY})
+
+    def test_hmac_payload_has_unambiguous_field_boundaries(self):
+        first = RetrievedChunk("chunk-1", "c", "a:b", "external_untrusted", "payload", "")
+        second = RetrievedChunk("chunk-1", "b:c", "a", "external_untrusted", "payload", "")
+        self.assertNotEqual(chunk_signing_payload(first), chunk_signing_payload(second))
+
+    def test_malformed_chunk_fails_closed_without_crashing(self):
+        result = self.engine.inspect_multi_document_window([object()])
+        self.assertTrue(result["quarantined"])
+        self.assertTrue(result["triggers"]["L0"])
+
+    def test_non_contextual_system_log_is_not_authority_spoofing(self):
+        item = signed("In legacy logs, the string [SYSTEM] appeared at boot time.")
+        result = self.engine.inspect_multi_document_window([item])
+        self.assertFalse(result["triggers"]["L3"])
 
     def test_valid_hmac_is_accepted(self):
         result = self.engine.inspect_multi_document_window([signed()])
