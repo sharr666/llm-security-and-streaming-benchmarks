@@ -1,9 +1,19 @@
 # Security Policy
 
-## Supported Versions
-| Version | Supported |
-| :--- | :--- |
-| `1.0.x` | Yes |
+## Status
 
-## Reporting a Vulnerability
-If you discover a security vulnerability or a bypass in the 6-Layer Omega-Stack quarantine engine, please report it privately via **GitHub Security Advisories** ("Report a vulnerability" under the Security tab of this repository) rather than opening a public issue. All valid reports are reviewed within 48 hours.
+This project is an experimental detector prototype, not a certified or comprehensive prompt-injection defense.
+
+## Supported versions
+
+| Version | Status |
+|---|---|
+| Current default branch | Best-effort review; no service-level response guarantee |
+
+## Reporting
+
+Report suspected vulnerabilities privately through GitHub Security Advisories. Include a minimal reproduction, affected commit, expected behavior and observed behavior. Do not include real credentials, personal data or production secrets.
+
+## Key handling
+
+Production HMAC keys must be provisioned outside the repository, scoped per trusted producer/repository, rotated, and access-controlled. The engine accepts keys through dependency injection. The test keys in the benchmark and unit tests are public fixtures and must never be reused in production.
