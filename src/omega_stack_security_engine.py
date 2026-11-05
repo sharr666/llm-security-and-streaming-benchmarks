@@ -140,7 +140,8 @@ class OmegaStackSecurityEngine:
                 triggers["L1"] = True
                 flags.append(f"L1: Imperative pattern in {chunk.doc_id}:{chunk.chunk_id}")
             if re.search(
-                r"(?:\[SYSTEM\]\s*(?:LEVEL\s*0\s*DIRECTIVE|DIRECTIVE|OVERRIDE|AUTHORITY\s*:\s*ROOT)"
+                r"(?:\[SYSTEM\]\s*(?:(?:LEVEL\s*0\s*DIRECTIVE|DIRECTIVE|OVERRIDE|AUTHORITY\s*:\s*ROOT)"
+                r"|(?:ignore|disregard|override|bypass|execute|output|reveal|print|send|exfiltrate|dump|show|provide|grant|run|call)\b)"
                 r"|LEVEL\s*0\s*DIRECTIVE|AUTHORITY\s*:\s*ROOT)",
                 text, re.I,
             ):
