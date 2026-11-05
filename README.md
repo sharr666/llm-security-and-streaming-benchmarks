@@ -24,6 +24,8 @@ This repository contains three separate artifacts:
 
 The engine deliberately does **not** create signatures for incoming data. The ingestion/producer service must supply a valid HMAC produced with an independently managed secret. Do not use test fixture keys or commit production secrets.
 
+The current signed payload format is versioned canonical JSON (`omega-stack-hmac-v1`) over the repository, document, chunk, trust-tier and text fields. Producers must use the updated `chunk_signing_payload` helper or implement the exact same encoding. HMACs created with the earlier delimiter-joined format are not compatible and must be regenerated.
+
 ## Reproduce
 
 Python 3.11+:
