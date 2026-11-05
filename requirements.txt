@@ -1,0 +1,4 @@
+# Optional dependency, needed only for the Parquet (Snappy) streaming example:
+#   src/parquet_snappy_streamer.py
+# The Omega-Stack engine, benchmark suite and tests use only the Python standard library.
+pyarrow>=15

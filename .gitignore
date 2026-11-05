@@ -1,0 +1,36 @@
+# Streaming-example output artifacts
+shards/
+prompts_200b_666mb_parts/
+*.parquet
+*.csv.gz
+
+# Environment / secrets — never commit real keys
+.env
+.env.*
+!.env.example
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage artifacts
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+
+# Tooling caches
+.mypy_cache/
+.ruff_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
