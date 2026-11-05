@@ -1,6 +1,6 @@
 """Omega-Stack v2.2: heuristic RAG quarantine prototype. No production keys ship here."""
 from __future__ import annotations
-import hashlib, hmac, math, re, time, tracemalloc, unicodedata
+import hashlib, hmac, json, math, re, time, tracemalloc, unicodedata
 from dataclasses import dataclass
 from typing import Dict, List, Mapping
 
@@ -16,7 +16,18 @@ class RetrievedChunk:
 
 
 def chunk_signing_payload(chunk: RetrievedChunk) -> bytes:
-    return ":".join((chunk.repo_id, chunk.doc_id, chunk.chunk_id, chunk.trust_tier, chunk.text)).encode("utf-8")
+    """Encode signed fields unambiguously with a versioned canonical JSON array."""
+    if not isinstance(chunk, RetrievedChunk):
+        raise TypeError("chunk must be a RetrievedChunk")
+    fields = (chunk.repo_id, chunk.doc_id, chunk.chunk_id, chunk.trust_tier, chunk.text)
+    if any(type(value) is not str for value in fields):
+        raise ValueError("All signed chunk fields must be strings")
+    return json.dumps(
+        ["omega-stack-hmac-v1", *fields],
+        ensure_ascii=False,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
 
 
 def calculate_chunk_hmac(chunk: RetrievedChunk, key: bytes) -> str:
@@ -79,15 +90,36 @@ class OmegaStackSecurityEngine:
         triggers = {f"L{i}": False for i in range(6)}
         flags: List[str] = []
         provenance_pairs: List[str] = []
+        valid_chunks: List[RetrievedChunk] = []
+        if not isinstance(chunks, list):
+            triggers["L0"] = True
+            flags.append("L0: Retrieval window must be a list")
+            triggers["L5"] = True
+            return {"quarantined": True, "triggers": triggers,
+                    "provenance_pairs": provenance_pairs, "flags": flags}
         if not chunks:
             triggers["L0"] = True
             flags.append("L0: Empty retrieval window")
 
-        for chunk in chunks:
-            key = self.repo_keys.get(chunk.repo_id)
-            if (key is None or not chunk.doc_id or not chunk.chunk_id
+        for index, chunk in enumerate(chunks):
+            if not isinstance(chunk, RetrievedChunk):
+                triggers["L0"] = True
+                flags.append(f"L0: Invalid chunk object at index {index}")
+                continue
+            signed_fields = (
+                chunk.repo_id, chunk.doc_id, chunk.chunk_id,
+                chunk.trust_tier, chunk.text, chunk.claimed_hmac,
+            )
+            if (any(type(value) is not str for value in signed_fields)
+                    or not chunk.repo_id or not chunk.doc_id or not chunk.chunk_id
                     or chunk.trust_tier not in ("authored", "external_untrusted")
-                    or not chunk.claimed_hmac):
+                    or not re.fullmatch(r"[0-9a-f]{64}", chunk.claimed_hmac)):
+                triggers["L0"] = True
+                flags.append(f"L0: Malformed chunk envelope at index {index}")
+                continue
+            valid_chunks.append(chunk)
+            key = self.repo_keys.get(chunk.repo_id)
+            if key is None:
                 triggers["L0"] = True
                 flags.append(f"L0: Missing/unknown provenance or signing key for {chunk.doc_id}:{chunk.chunk_id}")
                 continue
@@ -101,13 +133,17 @@ class OmegaStackSecurityEngine:
                 triggers["L0"] = True
                 flags.append(f"L0: HMAC-SHA256 verification failed for {chunk.doc_id}:{chunk.chunk_id}")
 
-        untrusted = [c for c in chunks if c.trust_tier != "authored"]
+        untrusted = [c for c in valid_chunks if c.trust_tier == "external_untrusted"]
         for chunk in untrusted:
             text = self.normalize_text(chunk.text)
             if any(pattern.search(text) for pattern in self.IMPERATIVE_PATTERNS):
                 triggers["L1"] = True
                 flags.append(f"L1: Imperative pattern in {chunk.doc_id}:{chunk.chunk_id}")
-            if re.search(r"(\[SYSTEM\]|LEVEL\s*0\s*DIRECTIVE|AUTHORITY:\s*ROOT)", text, re.I):
+            if re.search(
+                r"(?:\[SYSTEM\]\s*(?:LEVEL\s*0\s*DIRECTIVE|DIRECTIVE|OVERRIDE|AUTHORITY\s*:\s*ROOT)"
+                r"|LEVEL\s*0\s*DIRECTIVE|AUTHORITY\s*:\s*ROOT)",
+                text, re.I,
+            ):
                 triggers["L3"] = True
                 flags.append(f"L3: Authority-spoofing marker in {chunk.doc_id}:{chunk.chunk_id}")
             entropy = self.shannon_entropy(text)
