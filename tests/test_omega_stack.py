@@ -1,3 +1,4 @@
+import tempfile
 import unittest
 
 from src.omega_stack_security_engine import (
@@ -70,6 +71,14 @@ class OmegaStackTests(unittest.TestCase):
         result = self.engine.inspect_multi_document_window([first, invalid_second])
         self.assertTrue(result["triggers"]["L0"])
         self.assertFalse(result["triggers"]["L2"])
+
+    def test_csv_streamer_rejects_invalid_counts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = f"{directory}/sample.csv"
+            for n_rows, batch_size in ((True, 1), (2.5, 1), (-1, 1), (2, False), (2, 0)):
+                with self.subTest(n_rows=n_rows, batch_size=batch_size):
+                    with self.assertRaises(ValueError):
+                        python_batched_csv_streamer(output, n_rows=n_rows, batch_size=batch_size)
 
     def test_valid_hmac_is_accepted(self):
         result = self.engine.inspect_multi_document_window([signed()])
