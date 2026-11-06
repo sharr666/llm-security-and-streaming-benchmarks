@@ -7,7 +7,7 @@
 
 ## 1. [Preprint / Technical Report] Isolated Multi-Document Query Logic and Defense-in-Depth Architecture Against Distributed Indirect Prompt Injection in Agentic Workflows
 - **CERN Zenodo DOI:** `10.5281/zenodo.23758690`
-- **Scope & Empirical Validation:** Formalizes multi-hop boolean query isolation (`deep-personal-search v2.0`), chunk-level provenance tagging ($T \in \{T_{\text{authored}}, T_{\text{archived}}\}$), passive tokenization, and the 6-layer **Omega-Stack** defense-in-depth blueprint (`OIAG-285`) validated across `86` personal knowledge bases (`4` target security repositories, `21` matched documents, and `58` retrieved chunks) under strict zero-web isolation.
+- **Scope & Reported Evaluation:** The preprint describes multi-hop query isolation, chunk-level provenance tagging, passive tokenization, and a six-layer **Omega-Stack** design (`OIAG-285`). It reports an evaluation over 86 personal knowledge bases, 4 target repositories, 21 matched documents, and 58 retrieved chunks. Those counts and results are claims made by the preprint; the public repository does not include the underlying 86-KB dataset, full protocol, or artifacts needed to reproduce that evaluation. The executable code here is a small heuristic prototype and does not independently validate those reported results.
 - **Executable Implementation:** [`../src/omega_stack_security_engine.py`](../src/omega_stack_security_engine.py) & [`../llm_security_benchmark_suite.py`](../llm_security_benchmark_suite.py)
 
 ---
