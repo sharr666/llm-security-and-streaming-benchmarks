@@ -4,6 +4,10 @@
 set -euo pipefail
 OUTPUT_DIR="${1:-./prompts_200b_666mb_parts}"
 TOTAL_ROWS="${2:-1000000}"
+if [[ ! "$TOTAL_ROWS" =~ ^[0-9]+$ ]]; then
+    printf 'ERROR: TOTAL_ROWS must be a non-negative integer\\n' >&2
+    exit 2
+fi
 mkdir -p "$OUTPUT_DIR"
 awk -v max="$TOTAL_ROWS" 'BEGIN {
     for(i=1; i<=max; i++) {
