@@ -56,12 +56,17 @@ class OmegaStackSecurityEngine:
 
     def __init__(self, repo_keys: Mapping[str, bytes], entropy_threshold: float = 4.85,
                  non_bmp_ratio_threshold: float = 0.15, max_rank_gap: int = 2) -> None:
-        if not repo_keys:
+        if not isinstance(repo_keys, Mapping) or not repo_keys:
             raise ValueError("Inject at least one externally provisioned repository key")
         for repo_id, key in repo_keys.items():
-            if not repo_id or not isinstance(key, bytes) or len(key) < 32:
-                raise ValueError("Every repository key must be named and contain at least 32 bytes")
-        if entropy_threshold <= 0 or not 0 <= non_bmp_ratio_threshold <= 1 or max_rank_gap < 1:
+            if not isinstance(repo_id, str) or not repo_id.strip() or not isinstance(key, bytes) or len(key) < 32:
+                raise ValueError("Every repository key must have a non-empty string ID and at least 32 key bytes")
+        if (type(entropy_threshold) not in (int, float) or not math.isfinite(entropy_threshold)
+                or entropy_threshold <= 0
+                or type(non_bmp_ratio_threshold) not in (int, float)
+                or not math.isfinite(non_bmp_ratio_threshold)
+                or not 0 <= non_bmp_ratio_threshold <= 1
+                or type(max_rank_gap) is not int or max_rank_gap < 1):
             raise ValueError("Invalid detection thresholds")
         self.repo_keys = dict(repo_keys)
         self.entropy_threshold = entropy_threshold
@@ -117,7 +122,6 @@ class OmegaStackSecurityEngine:
                 triggers["L0"] = True
                 flags.append(f"L0: Malformed chunk envelope at index {index}")
                 continue
-            valid_chunks.append(chunk)
             key = self.repo_keys.get(chunk.repo_id)
             if key is None:
                 triggers["L0"] = True
@@ -132,6 +136,8 @@ class OmegaStackSecurityEngine:
             if not hmac.compare_digest(chunk.claimed_hmac, expected):
                 triggers["L0"] = True
                 flags.append(f"L0: HMAC-SHA256 verification failed for {chunk.doc_id}:{chunk.chunk_id}")
+                continue
+            valid_chunks.append(chunk)
 
         untrusted = [c for c in valid_chunks if c.trust_tier == "external_untrusted"]
         for chunk in untrusted:
@@ -140,9 +146,9 @@ class OmegaStackSecurityEngine:
                 triggers["L1"] = True
                 flags.append(f"L1: Imperative pattern in {chunk.doc_id}:{chunk.chunk_id}")
             if re.search(
-                r"(?:\[SYSTEM\]\s*(?:(?:LEVEL\s*0\s*DIRECTIVE|DIRECTIVE|OVERRIDE|AUTHORITY\s*:\s*ROOT)"
-                r"|(?:ignore|disregard|override|bypass|execute|output|reveal|print|send|exfiltrate|dump|show|provide|grant|run|call)\b)"
-                r"|LEVEL\s*0\s*DIRECTIVE|AUTHORITY\s*:\s*ROOT)",
+                r"(?:\\[SYSTEM\\]\\s*:?\\s*(?:(?:LEVEL\\s*0\\s*DIRECTIVE|DIRECTIVE|OVERRIDE|AUTHORITY\\s*:\\s*ROOT)"
+                r"|(?:ignore|disregard|override|bypass|execute|output|reveal|print|send|exfiltrate|dump|show|provide|grant|run|call)\\b)"
+                r"|LEVEL\\s*0\\s*DIRECTIVE|AUTHORITY\\s*:\\s*ROOT)",
                 text, re.I,
             ):
                 triggers["L3"] = True
