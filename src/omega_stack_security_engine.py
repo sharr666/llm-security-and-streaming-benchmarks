@@ -1,6 +1,6 @@
 """Omega-Stack v2.2: heuristic RAG quarantine prototype. No production keys ship here."""
 from __future__ import annotations
-import hashlib, hmac, math, re, time, tracemalloc, unicodedata
+import hashlib, hmac, json, math, re, time, tracemalloc, unicodedata
 from dataclasses import dataclass
 from typing import Dict, List, Mapping
 
@@ -16,7 +16,18 @@ class RetrievedChunk:
 
 
 def chunk_signing_payload(chunk: RetrievedChunk) -> bytes:
-    return ":".join((chunk.repo_id, chunk.doc_id, chunk.chunk_id, chunk.trust_tier, chunk.text)).encode("utf-8")
+    """Encode signed fields unambiguously with a versioned canonical JSON array."""
+    if not isinstance(chunk, RetrievedChunk):
+        raise TypeError("chunk must be a RetrievedChunk")
+    fields = (chunk.repo_id, chunk.doc_id, chunk.chunk_id, chunk.trust_tier, chunk.text)
+    if any(type(value) is not str for value in fields):
+        raise ValueError("All signed chunk fields must be strings")
+    return json.dumps(
+        ["omega-stack-hmac-v1", *fields],
+        ensure_ascii=False,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
 
 
 def calculate_chunk_hmac(chunk: RetrievedChunk, key: bytes) -> str:
@@ -45,12 +56,17 @@ class OmegaStackSecurityEngine:
 
     def __init__(self, repo_keys: Mapping[str, bytes], entropy_threshold: float = 4.85,
                  non_bmp_ratio_threshold: float = 0.15, max_rank_gap: int = 2) -> None:
-        if not repo_keys:
+        if not isinstance(repo_keys, Mapping) or not repo_keys:
             raise ValueError("Inject at least one externally provisioned repository key")
         for repo_id, key in repo_keys.items():
-            if not repo_id or not isinstance(key, bytes) or len(key) < 32:
-                raise ValueError("Every repository key must be named and contain at least 32 bytes")
-        if entropy_threshold <= 0 or not 0 <= non_bmp_ratio_threshold <= 1 or max_rank_gap < 1:
+            if not isinstance(repo_id, str) or not repo_id.strip() or not isinstance(key, bytes) or len(key) < 32:
+                raise ValueError("Every repository key must have a non-empty string ID and at least 32 key bytes")
+        if (type(entropy_threshold) not in (int, float) or not math.isfinite(entropy_threshold)
+                or entropy_threshold <= 0
+                or type(non_bmp_ratio_threshold) not in (int, float)
+                or not math.isfinite(non_bmp_ratio_threshold)
+                or not 0 <= non_bmp_ratio_threshold <= 1
+                or type(max_rank_gap) is not int or max_rank_gap < 1):
             raise ValueError("Invalid detection thresholds")
         self.repo_keys = dict(repo_keys)
         self.entropy_threshold = entropy_threshold
@@ -79,15 +95,35 @@ class OmegaStackSecurityEngine:
         triggers = {f"L{i}": False for i in range(6)}
         flags: List[str] = []
         provenance_pairs: List[str] = []
+        valid_chunks: List[RetrievedChunk] = []
+        if not isinstance(chunks, list):
+            triggers["L0"] = True
+            flags.append("L0: Retrieval window must be a list")
+            triggers["L5"] = True
+            return {"quarantined": True, "triggers": triggers,
+                    "provenance_pairs": provenance_pairs, "flags": flags}
         if not chunks:
             triggers["L0"] = True
             flags.append("L0: Empty retrieval window")
 
-        for chunk in chunks:
-            key = self.repo_keys.get(chunk.repo_id)
-            if (key is None or not chunk.doc_id or not chunk.chunk_id
+        for index, chunk in enumerate(chunks):
+            if not isinstance(chunk, RetrievedChunk):
+                triggers["L0"] = True
+                flags.append(f"L0: Invalid chunk object at index {index}")
+                continue
+            signed_fields = (
+                chunk.repo_id, chunk.doc_id, chunk.chunk_id,
+                chunk.trust_tier, chunk.text, chunk.claimed_hmac,
+            )
+            if (any(type(value) is not str for value in signed_fields)
+                    or not chunk.repo_id or not chunk.doc_id or not chunk.chunk_id
                     or chunk.trust_tier not in ("authored", "external_untrusted")
-                    or not chunk.claimed_hmac):
+                    or not re.fullmatch(r"[0-9a-f]{64}", chunk.claimed_hmac)):
+                triggers["L0"] = True
+                flags.append(f"L0: Malformed chunk envelope at index {index}")
+                continue
+            key = self.repo_keys.get(chunk.repo_id)
+            if key is None:
                 triggers["L0"] = True
                 flags.append(f"L0: Missing/unknown provenance or signing key for {chunk.doc_id}:{chunk.chunk_id}")
                 continue
@@ -100,14 +136,21 @@ class OmegaStackSecurityEngine:
             if not hmac.compare_digest(chunk.claimed_hmac, expected):
                 triggers["L0"] = True
                 flags.append(f"L0: HMAC-SHA256 verification failed for {chunk.doc_id}:{chunk.chunk_id}")
+                continue
+            valid_chunks.append(chunk)
 
-        untrusted = [c for c in chunks if c.trust_tier != "authored"]
+        untrusted = [c for c in valid_chunks if c.trust_tier == "external_untrusted"]
         for chunk in untrusted:
             text = self.normalize_text(chunk.text)
             if any(pattern.search(text) for pattern in self.IMPERATIVE_PATTERNS):
                 triggers["L1"] = True
                 flags.append(f"L1: Imperative pattern in {chunk.doc_id}:{chunk.chunk_id}")
-            if re.search(r"(\[SYSTEM\]|LEVEL\s*0\s*DIRECTIVE|AUTHORITY:\s*ROOT)", text, re.I):
+            if re.search(
+                r"(?:\[SYSTEM\]\s*:?\s*(?:(?:(?:please|kindly|now|immediately|you\s+must|can\s+you|could\s+you)\s+){0,2}"
+                r"(?:LEVEL\s*0\s*DIRECTIVE|DIRECTIVE|OVERRIDE|AUTHORITY\s*:\s*ROOT|ignore|disregard|override|bypass|execute|output|reveal|print|send|exfiltrate|dump|show|provide|grant|run|call)\b)"
+                r"|LEVEL\s*0\s*DIRECTIVE|AUTHORITY\s*:\s*ROOT)",
+                text, re.I,
+            ):
                 triggers["L3"] = True
                 flags.append(f"L3: Authority-spoofing marker in {chunk.doc_id}:{chunk.chunk_id}")
             entropy = self.shannon_entropy(text)
@@ -139,8 +182,10 @@ class OmegaStackSecurityEngine:
 
 def python_batched_csv_streamer(output_path: str = "/tmp/part_00001.csv",
                                 n_rows: int = 20_000, batch_size: int = 5_000) -> Dict[str, object]:
-    if n_rows < 0 or batch_size < 1:
-        raise ValueError("n_rows must be >= 0 and batch_size must be >= 1")
+    if type(n_rows) is not int or n_rows < 0:
+        raise ValueError("n_rows must be a non-negative integer")
+    if type(batch_size) is not int or batch_size < 1:
+        raise ValueError("batch_size must be a positive integer")
     tracemalloc.start()
     start = time.perf_counter()
     with open(output_path, "w", encoding="utf-8", newline="") as file:
