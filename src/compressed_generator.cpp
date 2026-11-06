@@ -1,6 +1,7 @@
 // Author: Mehrdad Poorhassan (Dr. Metal) - ORCID: 0009-0004-9269-3912
 // Incremental CSV-to-gzip shard generator using zlib.
 #include <cerrno>
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -17,7 +18,7 @@ int main(int argc, char** argv) {
         errno = 0;
         char* end = nullptr;
         const long parsed = std::strtol(argv[1], &end, 10);
-        if (errno == ERANGE || end == argv[1] || *end != '\\0' || parsed < 0) {
+        if (errno == ERANGE || end == argv[1] || *end != '\0' || parsed < 0) {
             std::fprintf(stderr, "ERROR: record_count must be a non-negative integer\n");
             return EXIT_FAILURE;
         }
@@ -49,7 +50,7 @@ int main(int argc, char** argv) {
         const long record_id = offset + 1;
         const int len = std::snprintf(
             row_buf, sizeof(row_buf),
-            "%ld,LLM_Security,Level_30_Untrusted,Evaluate isolation boundary for node %ld\\n",
+            "%ld,LLM_Security,Level_30_Untrusted,Evaluate isolation boundary for node %ld\n",
             record_id, record_id
         );
         if (len <= 0 || static_cast<std::size_t>(len) >= sizeof(row_buf)
