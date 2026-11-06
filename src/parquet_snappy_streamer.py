@@ -9,9 +9,13 @@ import pyarrow.parquet as pq
 
 
 def generate_parquet_shards(output_dir="shards", num_shards=5, rows_per_shard=1000):
-    """
-    Generates Parquet shards compressed with Snappy using PyArrow.
-    """
+    """Generate Snappy-compressed Parquet shards; memory scales with one full shard."""
+    if not isinstance(output_dir, (str, os.PathLike)) or not os.fspath(output_dir):
+        raise ValueError("output_dir must be a non-empty path")
+    if type(num_shards) is not int or num_shards < 0:
+        raise ValueError("num_shards must be a non-negative integer")
+    if type(rows_per_shard) is not int or rows_per_shard < 0:
+        raise ValueError("rows_per_shard must be a non-negative integer")
     os.makedirs(output_dir, exist_ok=True)
 
     schema = pa.schema([
