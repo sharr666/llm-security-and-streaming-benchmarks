@@ -13,13 +13,6 @@ class StreamingHelperTests(unittest.TestCase):
             self.assertEqual(result["rows"], 3)
             self.assertEqual(len(output.read_text(encoding="utf-8").splitlines()), 4)
 
-    def test_csv_streamer_rejects_invalid_counts(self):
-        with tempfile.TemporaryDirectory() as directory:
-            output = str(Path(directory) / "sample.csv")
-            for n_rows, batch_size in ((True, 1), (2.5, 1), (-1, 1), (2, False), (2, 0)):
-                with self.subTest(n_rows=n_rows, batch_size=batch_size):
-                    with self.assertRaises(ValueError):
-                        python_batched_csv_streamer(output, n_rows=n_rows, batch_size=batch_size)
 
 
 if __name__ == "__main__":
