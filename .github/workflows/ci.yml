@@ -20,3 +20,14 @@ jobs:
           python -m unittest discover -s tests -v
       - name: Smoke benchmark
         run: python llm_security_benchmark_suite.py
+      - name: Validate C++ and shell streaming examples
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror src/compressed_generator.cpp -lz -o /tmp/compressed_generator
+          /tmp/compressed_generator 10 /tmp/omega-stream-test.csv.gz
+          test "$(gzip -dc /tmp/omega-stream-test.csv.gz | wc -l)" -eq 11
+          if /tmp/compressed_generator -1 /tmp/omega-invalid.csv.gz; then exit 1; fi
+          if /tmp/compressed_generator not-a-number /tmp/omega-invalid.csv.gz; then exit 1; fi
+          bash -n src/posix_awk_split_streamer.sh
+          temp_dir="$(mktemp -d)"
+          bash src/posix_awk_split_streamer.sh "$temp_dir" 10
+          test "$(cat "$temp_dir"/part_*.csv | wc -l)" -eq 10
