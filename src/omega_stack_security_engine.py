@@ -182,8 +182,10 @@ class OmegaStackSecurityEngine:
 
 def python_batched_csv_streamer(output_path: str = "/tmp/part_00001.csv",
                                 n_rows: int = 20_000, batch_size: int = 5_000) -> Dict[str, object]:
-    if n_rows < 0 or batch_size < 1:
-        raise ValueError("n_rows must be >= 0 and batch_size must be >= 1")
+    if type(n_rows) is not int or n_rows < 0:
+        raise ValueError("n_rows must be a non-negative integer")
+    if type(batch_size) is not int or batch_size < 1:
+        raise ValueError("batch_size must be a positive integer")
     tracemalloc.start()
     start = time.perf_counter()
     with open(output_path, "w", encoding="utf-8", newline="") as file:
