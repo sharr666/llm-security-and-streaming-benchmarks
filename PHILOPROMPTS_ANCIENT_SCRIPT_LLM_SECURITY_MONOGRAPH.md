@@ -1,5 +1,5 @@
 # The Semiotic Ontology Codex & The Art of the Philoprompt: Linguistic Alchemy, 8 Conceptual Macro-Clusters, Non-BMP Ancient-Script Tokenization, and Latent-Space Topology in LLMs
-### کُدکس هستی‌شناسی نشانه‌شناختی و رساله فیلوپرامپت‌های ساختارگسیخته درخودتنیده — اثر ویژه مهرداد پورحسن (دکتر متال)
+### کُدکس هستی‌شناسی نشانه‌شناختی و رساله فیلوپرامپت‌های ساختارگسیخته درخودتنیده — از مهرداد پورحسن (دکتر متال)
 
 
 **Author:** Mehrdad Poorhassan (`Dr. Metal`)  
