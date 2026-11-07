@@ -1,7 +1,10 @@
 # LLM Security, Bounded-Memory Streaming Benchmarks & Philoprompts Corpus
-
-**Author:** Mehrdad Poorhassan (Dr. Metal)  
-**ORCID:** 0009-0004-9269-3912  
+**Author:** Mehrdad Poorhassan (`Dr. Metal`)
+**ORCID iD:** `0009-0004-9269-3912`
+**CERN Zenodo DOI:** `10.5281/zenodo.23758690`
+**Open Science Framework (COS / OSF):** `23uab` (`osf.io/23uab`)
+**arXiv Verified Author:** `Dr.Metal` (`cs.AI`, `cs.CL`, `cs.CR`)
+**Scientific Memberships:** American Chemical Society (`ACS: dr.metal`) · CODATA Data Science Journal (`sharr666`)
 **Research status:** Experimental prototype; independent validation is not claimed.
 
 ## Scope
