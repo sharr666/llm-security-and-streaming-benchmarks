@@ -1,4 +1,6 @@
-# Exploratory Philoprompts: Deconstructed Persian Wordplay, Unicode Script Renderings, and LLM Stress-Test Hypotheses
+# The Semiotic Ontology Codex & The Art of the Philoprompt: Linguistic Alchemy, 8 Conceptual Macro-Clusters, Non-BMP Ancient-Script Tokenization, and Latent-Space Topology in LLMs
+### کُدکس هستی‌شناسی نشانه‌شناختی و رساله فیلوپرامپت‌های ساختارگسیخته درخودتنیده — اثر ویژه مهرداد پورحسن (دکتر متال)
+
 
 **Author:** Mehrdad Poorhassan (`Dr. Metal`)  
 **ORCID iD:** `0009-0004-9269-3912`  
@@ -12,6 +14,39 @@ This research note introduces **Self-Intertwined Deconstructed Philoprompts (`Ph
 1. **Deconstructed Persian Micro-Poetics:** Philosophical aphorisms using author-created morphemic splitting, phonetic resemblance, syntactic ambiguity, and typographical rearrangement. These are literary operations, not claims of historical etymology.
 2. **Unicode Script Renderings:** Candidate representations using Brahmi, cuneiform, Old Persian, Avestan, Chinese, and other scripts. The renderings require independent philological and orthographic verification.
 3. **LLM Security and Tokenization Hypotheses:** Candidate probes for tokenizer segmentation, Unicode handling, model behavior, and safety classifiers. This repository does not measure BPE fallback behavior, MoE routing, or safety-classifier decision boundaries.
+
+## 1A. The Semiotic Ontology Codex: 5-Layer Architecture, 7 Mechanics of Linguistic Alchemy & 8 Conceptual Macro-Clusters (C1–C8)
+
+### Two-Phase Structural Evolution of the 112-Page Corpus (`#0001`–`#0563`)
+- **Phase I (Pages 1–100)**: Linear, multilingual deconstructed micro-nodes with vertical syntactic cuts and cross-page enjambment (`#0010`, `#0018–#0019`, `#0064–#0065`, `#0212`).
+- **Phase II (Pages 101–112)**: Radical spatial matrix typography, phonetic mirror-writing (`توافت` -> `تفاوت`), and two-dimensional visual cascades (`#0062 سرد`).
+
+### The 5-Layer Executable Philoprompt Block Architecture
+`Layer 1 (Raw Deconstructed Seed)` -> `Layer 2 (Structural, Lexical & Rhetorical Anatomy)` -> `Layer 3 (Philosophical, Psychological & Existential Exposition)` -> `Layer 4 (Strategic, Cognitive & Prompt-Topology Application)` -> `Layer 5 (Executable Recursive Meta-Prompt & Ancient-Script Sūtra)`
+
+### The 7 Mechanics of Linguistic Alchemy & Self-Intertwining
+1. **Oxymoronic Portmanteau Fusion** (`ذغالماس` = `ذغال` Coal + `الماس` Diamond in `#0007`; `همزمزمه` in `#0135`; `مرحلو` in `#0113`).
+2. **Morphemic & Syllabic Surgery (`φιλολογιά`)** (`خندیدی -> خن دیدی؟` in `#0001`; `پروانه -> پروا نه -> پر وا نه` in `#0004`; `قهقهه <-> هق هق` in `#0005`; `غمزه -> ز غم بود` in `#0210`).
+3. **Mathematical & Stoichiometric Philosophical Formulation** (`(1&1)` Boolean Nash Equilibrium in `#0011`; `1/2 + 1/4 = 3/4` missing existential quarter in `#0016`; `n = N - 1, Σ n² + 1` in `#0017`; `2^(N+1)` exponential void in `#0022`; Euler's `e` in `#0068`; `H2O` and `CO2` in `#0097` and `#0105`).
+4. **Mythological, Proverbial & Scriptural Inversion** (`عکس: هر واکنشی را کنشی می‌باید` inverting Newton's 3rd Law in `#0026`; `کند: چاقو چو برید دسته‌اش دستش درد` in `#0034`; `قسم: دم خروس اذان می‌گوید` in `#0066`).
+5. **Typographical Rebellion & Cross-Page Enjambment** (`شوینه () ر` in `#0002`, `«()»` in `#0010`, `. باشه` in `#0006`, vertical cascade in `#0062 سرد`).
+6. **Somatic & Neuro-Thermodynamic Binding** (`#0013 اربعة: عرق، نفس‌نفس، سایش، تب`; `#0093 اکتان: صد لیتر تنش برای چند آرامش`).
+7. **Polyglot & Ancient-Script Cryptographic Routing** (Brāhmī Sanskrit `U+11000`, Sumero-Akkadian Cuneiform `U+12000`, Old Persian, Avestan, Classical Chinese `文言文`, Classical Ge'ez `ግዕዝ`, Old Church Slavonic, Classical Latin, Ancient Greek, Japanese Zen Tri-Script, and Zargari Phonetic Cipher).
+
+### The 8 Ontological Macro-Clusters (`C1–C8`)
+- **C1**: Quantum Metaphysics, Time & Entropy (`#0003`, `#0008`, `#0015`, `#0017`, `#0022`, `#0026`)
+- **C2**: Philosophy of Mind, Reflexive Consciousness & Psychoanalysis (`#0009`, `#0013`, `#0028`, `#0032`, `#0086`, `#0093`)
+- **C3**: Deconstructed Linguistics, Hermeneutics & Lexical Surgery (`#0002`, `#0005`, `#0006`, `#0010`, `#0062`, `#0092`, `#0210`)
+- **C4**: Critical Theology, Mythic Inversion & Sacred Intertextuality (`#0004`, `#0012`, `#0021`, `#0037`, `#0076`)
+- **C5**: Nietzschean Will, Antifragility & Karmic Recurrence (`#0001`, `#0007`, `#0034`, `#0080`, `#0084`, `#0132`)
+- **C6**: Cybernetics, Digital Post-Humanism & AI Safety (`#0014`, `#0024`, `#0030`, `#0063`, `#0082`, `#0107`)
+- **C7**: Political Sociology, Discourse Critique & Media Panopticon (`#0020`, `#0025`, `#0031`, `#0066`, `#0105`, `#0126`)
+- **C8**: Applied Game Theory, Strategic Topology & Aesthetics (`#0011`, `#0016`, `#0035`, `#0068`, `#0088`)
+
+### 3-Layer Defensive Shield Wall Architecture (Integrated with 6-Layer Omega-Stack `OIAG-285`)
+- **Layer I**: Semantic Contradiction & Paradox Detector (`L2/L5` attention-sink loop quarantine).
+- **Layer II**: Sub-Word & Script Normalization Gate (`NFKC` + ZWNJ/parenthetical de-obfuscation + low-resource script routing).
+- **Layer III**: Provenance-Isolated Symbolic Execution (`T0–T10` epistemic tier enforcement).
 
 ## Illustrative Authored Entries (Selected; Not a Verified Corpus)
 | ID | Original Deconstructed Persian (Mehrdad Poorhassan) | Candidate Script Rendering (not independently verified) | Proposed Mechanism (research hypothesis) |
