@@ -13,7 +13,9 @@ This repository contains three separate artifacts:
 1. **Omega-Stack v2.2:** a heuristic multi-document RAG quarantine prototype.
 2. **Streaming examples:** small Python, C++/zlib, Parquet and POSIX pipeline demonstrations.
 3. **Philoprompts:** an exploratory multilingual/Unicode test concept. The current monograph is a research note, not a fully released 234-record machine-readable corpus.
-
+![Deconstructed_Philoprompts_Architecture_Diagram.png](https://lh3.googleusercontent.com/d/1NKIsjARhDKy8AOYyaoDMGpxa89oClPGU)
+> **Figure 1 — Deconstructed Philoprompts Architecture (`OIAG-285`):** Core Mechanics of Intertwining and 5-Layer Executable Meta-Prompt Block Framework (2752×1536 Lossless PNG).
+> 
 ## Omega-Stack v2.2 layers
 
 | Layer | Current implementation | Important limitation |
