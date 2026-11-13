@@ -20,6 +20,8 @@
 ---
 
 ## 3. [Preprint / Technical Monograph] Self-Intertwined Deconstructed Philoprompts (`Philoprompts-v1.0`)
+- **Primary Monograph & Corpus DOI (COS / OSF):** `10.17605/OSF.IO/Y8J9G` (https://doi.org/10.17605/OSF.IO/Y8J9G)
+- **Companion Repository Release DOI (CERN / Zenodo):** `10.5281/zenodo.23758690` (https://doi.org/10.5281/zenodo.23758690)
 - **Monograph (exploratory research note):** [`../PHILOPROMPTS_ANCIENT_SCRIPT_LLM_SECURITY_MONOGRAPH.md`](../PHILOPROMPTS_ANCIENT_SCRIPT_LLM_SECURITY_MONOGRAPH.md)
 - **Scope & Evidence Status:** Proposes linguistic and adversarial research mechanisms and shows selected author-created examples with candidate Unicode script renderings. The complete 234-entry machine-readable corpus is not present in this repository, and the script renderings have not been independently philologically verified here. The mechanisms are research hypotheses, not experimentally validated LLM vulnerabilities or benchmark results.
 **Date:** October 2026  
