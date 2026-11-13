@@ -11,3 +11,10 @@ authors:
     given-names: "Mehrdad"
     alias: "Dr. Metal"
     orcid: "0009-0004-9269-3912"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23758690"
+    description: "CERN Zenodo Software & Benchmark Release"
+  - type: doi
+    value: "10.17605/OSF.IO/Y8J9G"
+    description: "COS / OSF Philoprompts-v1.0 Monograph & Corpus"
