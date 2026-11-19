@@ -49,7 +49,7 @@ The examples illustrate bounded temporary buffering for synthetic records. Memor
 ## Research notes and data status
 
 - The Philoprompts monograph contains selected examples and a proposed taxonomy.
-- The complete 234-entry corpus is not currently published as a validated, independently reproducible JSON/CSV dataset.
+- A public JSONL dataset is available on Hugging Face (563 rows at the time of this audit); it is exploratory, not a validated or independently reproducible benchmark. The older 234-entry reference is unreconciled with the current 563-row release.
 - Ancient-script transliterations, glyph assignments and linguistic interpretations require specialist review before being called philologically verified.
 
 ## Security reporting
