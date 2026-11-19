@@ -25,3 +25,12 @@
 - **Monograph (exploratory research note):** [`../PHILOPROMPTS_ANCIENT_SCRIPT_LLM_SECURITY_MONOGRAPH.md`](../PHILOPROMPTS_ANCIENT_SCRIPT_LLM_SECURITY_MONOGRAPH.md)
 - **Scope & Evidence Status:** Proposes linguistic and adversarial research mechanisms and shows selected author-created examples with candidate Unicode script renderings. The complete 234-entry machine-readable corpus is not present in this repository, and the script renderings have not been independently philologically verified here. The mechanisms are research hypotheses, not experimentally validated LLM vulnerabilities or benchmark results.
 **Date:** October 2026  
+
+---
+
+## 4. [Preliminary Technical Report — not peer-reviewed] A Detector-Only Screen of a Pinned Rule-Based RAG Quarantine Engine on 1,500 PIArena-Derived Examples
+- **Author:** Mehrdad Poorhassan (`Dr. Metal`) · **ORCID:** [0009-0004-9269-3912](https://orcid.org/0009-0004-9269-3912); no institutional affiliation stated.
+- **Status & Scope:** Exploratory detector-only screen: 0/750 injected-labeled and 0/750 benign-labeled rows were quarantined under a single-chunk mapping. No model, answer generation, tools, or end-to-end RAG behavior was tested; L2 was structurally unexercised. These are detector outputs, not attack-success or deployment-performance results.
+- **Data & Reproducibility:** The report contains no source-text examples or dataset rows. The local study bundle is not included, and public data-rights/reproduction review remains pending.
+- **Manuscript:** [`piarena-detector-screen.md`](piarena-detector-screen.md)
+- **License:** CC BY 4.0, consistent with this directory’s technical-report policy. No DOI is assigned.
