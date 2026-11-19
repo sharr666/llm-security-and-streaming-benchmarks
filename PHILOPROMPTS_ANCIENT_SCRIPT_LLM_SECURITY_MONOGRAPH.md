@@ -4,9 +4,9 @@
 
 **Author:** Mehrdad Poorhassan (`Dr. Metal`)  
 **ORCID iD:** `0009-0004-9269-3912`  
-**CERN / Zenodo DOI:** `10.5281/zenodo.23758690`  
+**CERN / Zenodo DOI (Philoprompts-v1.0; publication status not independently confirmed):** `10.5281/zenodo.24238946`  
 **License:** Apache License 2.0  
-![Deconstructed Philoprompts Architecture Diagram](https://lh3.googleusc.comontenter
+![Deconstructed Philoprompts Architecture Diagram](https://lh3.googleusercontent.com/d/1NKIsjARhDKy8AOYyaoDMGpxa89oClPGU)
 ## Abstract
 
 This research note introduces **Self-Intertwined Deconstructed Philoprompts (`Philoprompts-v1.0`)**, an exploratory collection of author-created linguistic transformations and candidate adversarial prompts by **Mehrdad Poorhassan (`Dr. Metal`)**. It is not a validated benchmark or a complete machine-readable corpus. The examples propose three areas for future study:
