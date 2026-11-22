@@ -4,7 +4,7 @@
 **CERN Zenodo DOI:** `10.5281/zenodo.23758690`
 **Zenodo DOI (Philoprompts-v1.0):** `10.5281/zenodo.24238946` ([DOI link](https://doi.org/10.5281/zenodo.24238946))
 **Open Science Framework (OSF):** [Archival Project (osf.io/y8j9g)](https://osf.io/y8j9g/) (`DOI: 10.17605/OSF.IO/Y8J9G`) · [Researcher Profile (osf.io/23uab)](https://osf.io/23uab/)
-**Paper:** [Paper](philoprompts_scholar_page.html)
+**Research Note (Google Scholar Page):** [Research Note (Google Scholar Page)](philoprompts_scholar_page.html)
 **Research status:** Experimental prototype; independent validation is not claimed.
 
 ## Scope
