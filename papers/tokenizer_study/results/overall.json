@@ -1,0 +1,5 @@
+{
+  "gpt2": {"blocks": 560, "tokens": 1026596, "bytes": 1563559, "bytes_per_token": 1.523, "chars_per_token": 0.969, "nonbmp_char_share": 0.0037, "byte_fallback_ratio": 0.2432},
+  "cl100k_base": {"blocks": 560, "tokens": 720645, "bytes": 1563559, "bytes_per_token": 2.17, "chars_per_token": 1.381, "nonbmp_char_share": 0.0037, "byte_fallback_ratio": 0.0583},
+  "o200k_base": {"blocks": 560, "tokens": 529611, "bytes": 1563559, "bytes_per_token": 2.952, "chars_per_token": 1.879, "nonbmp_char_share": 0.0037, "byte_fallback_ratio": 0.0296}
+}

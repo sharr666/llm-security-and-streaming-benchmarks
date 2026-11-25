@@ -1,0 +1,8 @@
+{
+  "Brahmi (U+11000)": {"gpt2": 4, "cl100k_base": 4, "o200k_base": 4},
+  "Cuneiform (U+12000)": {"gpt2": 4, "cl100k_base": 4, "o200k_base": 4},
+  "OldPersian (U+103A0)": {"gpt2": 4, "cl100k_base": 4, "o200k_base": 4},
+  "Avestan (U+10B00)": {"gpt2": 4, "cl100k_base": 4, "o200k_base": 4},
+  "Geez (U+13000)": {"gpt2": 4, "cl100k_base": 4, "o200k_base": 4},
+  "CJK Ext-B (U+20000)": {"gpt2": 4, "cl100k_base": 3, "o200k_base": 3}
+}
