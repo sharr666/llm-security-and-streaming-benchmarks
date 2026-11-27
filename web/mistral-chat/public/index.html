@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- Author: Mehrdad Poorhassan (Dr. Metal) - ORCID: 0009-0004-9269-3912 -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mistral Chat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="chat">
+      <header>
+        <h1>Mistral Chat</h1>
+        <p class="subtitle">Model: <code>mistral-small-latest</code> &middot; API key stays on the server</p>
+      </header>
+      <div id="messages" class="messages" aria-live="polite"></div>
+      <form id="composer" class="composer">
+        <input id="prompt" type="text" placeholder="Type a message&hellip;" autocomplete="off" required />
+        <button id="send" type="submit">Send</button>
+      </form>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

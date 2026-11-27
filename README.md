@@ -47,6 +47,17 @@ The benchmark contains 20 hand-authored examples. Its confusion matrix is a smok
 
 The examples illustrate bounded temporary buffering for synthetic records. Memory observations depend on runtime, allocator, dependency versions and measurement method. The Parquet example currently builds each shard as Python lists before writing; it is **not** constant-memory in the number of rows per shard.
 
+## Web chat demo (Mistral API)
+
+`web/mistral-chat/` is a minimal TypeScript web app: a chat UI backed by the official `@mistralai/mistralai` SDK using `mistral-small-latest`, with `MISTRAL_API_KEY` kept on the server only. To run it locally:
+
+```bash
+cd web/mistral-chat
+npm install
+cp .env.example .env   # set MISTRAL_API_KEY in .env
+npm run dev            # open http://localhost:3000
+```
+
 ## Research notes and data status
 
 - The Philoprompts monograph contains selected examples and a proposed taxonomy.
