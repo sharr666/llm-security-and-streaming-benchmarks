@@ -1,7 +1,7 @@
 # Technical Reports & Monographs Overview
 
 **Author:** Mehrdad Poorhassan (`Dr. Metal`) — **ORCID iD:** `0009-0004-9269-3912`  
-**License:** `CC BY 4.0` for reports unless a file states otherwise · `Apache-2.0` for source code; the Philoprompts monograph currently declares `Apache-2.0`.
+**License:** `CC BY 4.0` for reports unless a file states otherwise · `Apache-2.0` for source code.
 
 ---
 
@@ -20,11 +20,12 @@
 ---
 
 ## 3. [Preprint / Technical Monograph] Self-Intertwined Deconstructed Philoprompts (`Philoprompts-v1.0`)
+- **Preprint v2 DOI (CERN / Zenodo):** `10.5281/zenodo.24443696` (https://doi.org/10.5281/zenodo.24443696)
 - **Primary Monograph & Corpus DOI (COS / OSF):** `10.17605/OSF.IO/Y8J9G` (https://doi.org/10.17605/OSF.IO/Y8J9G)
-- **Companion Philoprompts-v1.0 Release DOI (CERN / Zenodo; publication status not independently confirmed):** `10.5281/zenodo.24238946` (https://doi.org/10.5281/zenodo.24238946)
+- **Companion Philoprompts-v1.0 Dataset DOI (CERN / Zenodo):** `10.5281/zenodo.24238946` (https://doi.org/10.5281/zenodo.24238946)
 - **Monograph (exploratory research note):** [`../PHILOPROMPTS_ANCIENT_SCRIPT_LLM_SECURITY_MONOGRAPH.md`](../PHILOPROMPTS_ANCIENT_SCRIPT_LLM_SECURITY_MONOGRAPH.md)
 - **Scope & Evidence Status:** Proposes linguistic and adversarial research mechanisms and shows selected author-created examples with candidate Unicode script renderings. The current Hugging Face release reports 563 rows (`#0001–#0563`); this repository does not contain the full JSONL dataset. Older references to a 234-entry corpus are unreconciled with that release. The script renderings have not been independently philologically verified here. The mechanisms are research hypotheses, not experimentally validated LLM vulnerabilities or benchmark results.
-**Date:** October 2026  
+**Date:** November 2026 (2026-11-03 / 2026-11-22)  
 
 ---
 

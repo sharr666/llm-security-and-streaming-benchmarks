@@ -4,8 +4,8 @@
 
 **Author:** Mehrdad Poorhassan (`Dr. Metal`)  
 **ORCID iD:** `0009-0004-9269-3912`  
-**CERN / Zenodo DOI (Philoprompts-v1.0; publication status not independently confirmed):** `10.5281/zenodo.24238946`  
-**License:** Apache License 2.0  
+**CERN / Zenodo DOIs:** Preprint v2 `10.5281/zenodo.24443696` · Dataset v1 `10.5281/zenodo.24238946`  
+**License:** CC BY 4.0  
 ![Deconstructed Philoprompts Architecture Diagram](https://lh3.googleusercontent.com/d/1NKIsjARhDKy8AOYyaoDMGpxa89oClPGU)
 ## Abstract
 
